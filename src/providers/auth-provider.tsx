@@ -1,6 +1,7 @@
 import React, {createContext, useState, useEffect, ReactNode, useContext} from 'react';
 import { IUser } from '../types/user';
 import { LoginResponse, loginApi } from '../api/auth-api.ts';
+import {LocalStorageKey} from "../types/localstorage.ts";
 
 type loginFn = (email: string, password: string ) => Promise<LoginResponse>;
 type logoutFn = () => Promise<void>;
@@ -30,11 +31,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
             }
             const response = await loginApi(dataLogin);
             setUser(response.user || null);
-            localStorage.setItem('user', JSON.stringify(response.user));
+            localStorage.setItem(LocalStorageKey.USER, JSON.stringify(response.user));
+            localStorage.setItem(LocalStorageKey.ACCESS_TOKEN, JSON.stringify(response.token));
             setLoading(false);
             return response;
         } catch (error) {
-            console.error('Login failed:', error);
             setLoading(false);
             throw error;
         }
@@ -45,7 +46,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
         setLoading(true)
         try {
             setUser(null);
-            localStorage.removeItem('user');
+            localStorage.removeItem(LocalStorageKey.USER);
+            localStorage.removeItem(LocalStorageKey.ACCESS_TOKEN);
             setLoading(false);
             return Promise.resolve();
         } catch (error) {
@@ -55,7 +57,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
         }
     };
     useEffect(() => {
-        const savedUser = localStorage.getItem('user');
+        const savedUser = localStorage.getItem(LocalStorageKey.ACCESS_TOKEN);
         if (savedUser) {
             setUser(JSON.parse(savedUser));
         }
