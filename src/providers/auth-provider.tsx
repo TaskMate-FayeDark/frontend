@@ -1,9 +1,15 @@
-import React, {createContext, useState, useEffect, ReactNode, useContext} from 'react';
-import { IUser } from '../types/user';
-import { LoginResponse, loginApi } from '../api/auth-api.ts';
-import {LocalStorageKey} from "../types/localstorage.ts";
+import React, {
+    createContext,
+    useState,
+    useEffect,
+    ReactNode,
+    useContext,
+} from "react";
+import { IUser } from "../types/user";
+import { LoginResponse, loginApi } from "../api/auth-api.ts";
+import { LocalStorageKey } from "../types/localstorage.ts";
 
-type loginFn = (email: string, password: string ) => Promise<LoginResponse>;
+type loginFn = (email: string, password: string) => Promise<LoginResponse>;
 type logoutFn = () => Promise<void>;
 
 interface AuthContextTypes {
@@ -19,7 +25,9 @@ interface AuthProviderProps {
 
 const AuthContext = createContext<AuthContextTypes | undefined>(undefined);
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProviderProps) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({
+    children,
+}: AuthProviderProps) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [user, setUser] = useState<IUser | null>(null);
     const login: loginFn = async (email: string, password: string) => {
@@ -28,11 +36,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
             const dataLogin = {
                 email,
                 password,
-            }
+            };
             const response = await loginApi(dataLogin);
             setUser(response.user || null);
-            localStorage.setItem(LocalStorageKey.USER, JSON.stringify(response.user));
-            localStorage.setItem(LocalStorageKey.ACCESS_TOKEN, JSON.stringify(response.token));
+            localStorage.setItem(
+                LocalStorageKey.USER,
+                JSON.stringify(response.user)
+            );
+            localStorage.setItem(
+                LocalStorageKey.ACCESS_TOKEN,
+                JSON.stringify(response.token)
+            );
             setLoading(false);
             return response;
         } catch (error) {
@@ -43,7 +57,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
 
     // Logout function
     const logout: logoutFn = async () => {
-        setLoading(true)
+        setLoading(true);
         try {
             setUser(null);
             localStorage.removeItem(LocalStorageKey.USER);
@@ -51,13 +65,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
             setLoading(false);
             return Promise.resolve();
         } catch (error) {
-            console.error('Logout failed:', error);
+            console.error("Logout failed:", error);
             setLoading(false);
             return Promise.reject(error);
         }
     };
     useEffect(() => {
-        const savedUser = localStorage.getItem(LocalStorageKey.ACCESS_TOKEN);
+        const savedUser = localStorage.getItem(LocalStorageKey.USER);
         if (savedUser) {
             setUser(JSON.parse(savedUser));
         }
@@ -72,8 +86,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
-    if(!context) {
-        throw new Error('AuthProvider returned no auth provider');
+    if (!context) {
+        throw new Error("AuthProvider returned no auth provider");
     }
     return context;
 };
