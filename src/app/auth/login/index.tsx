@@ -34,7 +34,6 @@ export const Login = () => {
             await login(dataLogin.email, dataLogin.password)
                 .then((result) => {
                     openNotification("topRight", result.message);
-                    console.log("test");
                     navigate({
                         to: `/work/boards`,
                     });
