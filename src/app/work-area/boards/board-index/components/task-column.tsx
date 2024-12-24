@@ -1,8 +1,8 @@
-import { Card } from "../../../../../components/ui/card";
-import { Avatar, AvatarFallback } from "../../../../../components/ui/avatar";
-import { Badge } from "../../../../../components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Paperclip, MessageCircle, MoreHorizontal } from "lucide-react";
-import { Button } from "../../../../../components/ui/button";
+import { Button } from "@/components/ui/button";
 
 interface Task {
   title: string;
@@ -12,13 +12,13 @@ interface Task {
   attachments: number;
 }
 
-export interface TaskColumnProps {
+interface TaskColumnProps {
   title: string;
   tasks: Task[];
 }
 
 export default function TaskColumn({ title, tasks }: TaskColumnProps) {
-  const getBadgeColor = (priority: "high" | "medium" | "low") => {
+  const getBadgeColor = (priority: string) => {
     switch (priority) {
       case "high":
         return "text-red-500";

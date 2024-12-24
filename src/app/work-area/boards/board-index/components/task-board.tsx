@@ -55,7 +55,7 @@ const columns = [
       {
         title: "User Research",
         description: "Conduct user research for Mindlax...",
-        priority: "medium" as "high" | "medium" | "low",
+        priority: "medium " as "high" | "medium" | "low",
         comments: 24,
         attachments: 5,
       },
@@ -65,8 +65,11 @@ const columns = [
 
 export default function TaskBoard() {
   return (
-    <div className="overflow-x-auto pb-3 scrollbar-thin w-[900px] m-[0 auto]">
-      <div className="flex gap-6">
+    <div className="overflow-x-auto scrollbar-thin pb-3">
+      <div
+        className="flex gap-6"
+        style={{ width: `${columns.length * 300}px` }}
+      >
         {columns.map((column) => (
           <div key={column.title} className="w-[300px] flex-shrink-0">
             <TaskColumn {...column} />

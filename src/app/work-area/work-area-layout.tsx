@@ -184,7 +184,7 @@ export const WorkAreaLayout: React.FC = () => {
 
         {/* Main Content */}
         <div
-          className="flex flex-col"
+          className="flex flex-col overflow-hidden"
           style={{
             backgroundImage:
               "radial-gradient(circle, #e8e8e8 2px, transparent 1px)",
@@ -251,7 +251,7 @@ export const WorkAreaLayout: React.FC = () => {
           </header>
 
           {/* Page Content */}
-          <main className="flex-1 p-6 w-full">
+          <main className="flex-1 p-6 w-full overflow-auto">
             <Outlet />
           </main>
         </div>
