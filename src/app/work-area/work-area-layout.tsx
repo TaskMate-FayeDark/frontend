@@ -18,11 +18,7 @@ import { Button, Popover } from "antd";
 import { ScrollArea } from "../../components/ui/scroll-area";
 import { Input } from "../../components/ui/input";
 import { Link } from "@tanstack/react-router";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "../../components/ui/avatar";
+import { Avatar, AvatarImage } from "../../components/ui/avatar";
 import { useAuth } from "../../providers/auth-provider";
 import { LocalStorageKey } from "../../types/localstorage";
 import useLink from "../../hooks/useLink";
@@ -257,14 +253,11 @@ export const WorkAreaLayout: React.FC = () => {
                 open={openUser}
                 onOpenChange={handleOpenUser}
               >
-                <Avatar>
+                <Avatar className="cursor-pointer">
                   <AvatarImage
-                    src={user?.profile_picture || undefined}
+                    src={user?.profile_picture || "/default-avt-user.webp"}
                     alt="User"
                   />
-                  <AvatarFallback>
-                    {user?.name?.charAt(0).toUpperCase() || "U"}
-                  </AvatarFallback>
                 </Avatar>
               </Popover>
             </div>

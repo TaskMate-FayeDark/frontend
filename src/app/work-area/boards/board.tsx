@@ -29,21 +29,7 @@ import { v4 as uuidv4 } from "uuid";
 import useMessage from "../../../hooks/useMessage";
 import { IError } from "../../../types/error";
 import { getBoardPagination } from "../../../api/boards.crud";
-
-export interface Board {
-  created_at: string;
-  created_by: number;
-  description: string;
-  due_date: string;
-  id: string;
-  name: string;
-  updated_at: string;
-  viewing_rights: string;
-  createdByUser: {
-    name: string;
-    profile_picture: string;
-  };
-}
+import { Board } from "../../../types/Board";
 
 export function BoardList() {
   const { openNotification, contextHolder } = useMessage();
@@ -74,7 +60,6 @@ export function BoardList() {
   }
   const handleSubmit = async () => {
     const uniqueId = uuidv4();
-    console.log(valuePrivacy);
     if (!user) {
       return;
     }
@@ -161,7 +146,7 @@ export function BoardList() {
             onOpenChange={setOpenDialogCreateBoard}
           >
             <DialogTrigger asChild>
-              <Button>
+              <Button className="bg-blue-500 text-white">
                 <Plus className="mr-2 h-4 w-4" /> Create New Board
               </Button>
             </DialogTrigger>
@@ -218,7 +203,11 @@ export function BoardList() {
                 </form>
               </div>
               <DialogFooter>
-                <Button onClick={handleSubmit} type="submit">
+                <Button
+                  onClick={handleSubmit}
+                  type="submit"
+                  className="bg-blue-500 text-white mt-8 hover:bg-blue-600 hover:text-white"
+                >
                   {loading && <Loader2 />}
                   Create Board
                 </Button>
@@ -231,6 +220,7 @@ export function BoardList() {
             dataBoards.map((board, index) => (
               <ItemBoard
                 key={index}
+                id={board.id}
                 title={board.name}
                 description={board.description}
                 createdBy={board.createdByUser.name}

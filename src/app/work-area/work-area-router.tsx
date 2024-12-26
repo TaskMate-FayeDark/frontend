@@ -19,7 +19,7 @@ export const workAreaRouter = _workAreaRoute.addChildren([
   }),
   createRoute({
     getParentRoute: () => _workAreaRoute,
-    path: "/boards/$id",
+    path: "/boards/$board_id",
     component: BoardIndex,
   }),
   createRoute({

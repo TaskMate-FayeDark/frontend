@@ -15,8 +15,10 @@ import {
   DropdownMenuTrigger,
 } from "../../../components/ui/dropdown-menu";
 import { Button } from "../../../components/ui/button";
+import useLink from "../../../hooks/useLink";
 
 interface BoardCardProps {
+  id: string;
   title: string;
   description: string;
   createdBy: string;
@@ -27,6 +29,7 @@ interface BoardCardProps {
 }
 
 export default function ItemBoard({
+  id,
   title,
   description,
   createdBy,
@@ -35,6 +38,7 @@ export default function ItemBoard({
   onEdit,
   onDelete,
 }: BoardCardProps) {
+  const { navigate } = useLink();
   return (
     <Card className="max-w-full">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -70,7 +74,15 @@ export default function ItemBoard({
           <span>Created: {format(createdAt, "MMM dd, yyyy HH:mm")}</span>
           <span>Expires: {format(expiresAt, "MMM dd, yyyy HH:mm")}</span>
         </div>
-        <Button className="mt-2 w-full" variant="outline">
+        <Button
+          onClick={() => {
+            navigate({
+              to: `/work/boards/${id}`,
+            });
+          }}
+          className="mt-2 w-full"
+          variant="outline"
+        >
           View Board
         </Button>
       </CardFooter>
