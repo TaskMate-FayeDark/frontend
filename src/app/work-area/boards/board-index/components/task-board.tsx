@@ -234,6 +234,7 @@ export default function TaskBoard() {
         });
       } else {
         const destinationTasks = Array.from(destinationColumn.tasks || []);
+        movedTask.list_id = destinationColumn.id;
         destinationTasks.splice(destination.index, 0, movedTask);
 
         setColumns((prevColumns) => {
@@ -293,7 +294,18 @@ export default function TaskBoard() {
                           </span>
                         </div>
                       </div>
-                      <TaskColumn {...column} columnId={column.id} />
+                      <Droppable droppableId={column.id} type="TASK">
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                            className="w-full flex flex-col space-y-2"
+                          >
+                            <TaskColumn {...column} columnId={column.id} />
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
                     </div>
                   )}
                 </Draggable>
