@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Outlet } from "@tanstack/react-router";
+import { Outlet, useLocation } from "@tanstack/react-router";
 import {
   Calendar,
   UsersRound,
@@ -71,6 +71,8 @@ export const WorkAreaLayout: React.FC = () => {
   const [openUser, setOpenUser] = useState(false);
   const [loading, setLoading] = useState(true);
   const [sidebarVisible, setSidebarVisible] = useState(true);
+  const location = useLocation();
+
   const hideNotification = () => {
     setOpenNotification(false);
   };
@@ -120,42 +122,60 @@ export const WorkAreaLayout: React.FC = () => {
                 <div className="space-y-4">
                   <Link
                     to={"/work/boards"}
-                    className="w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700"
+                    className={`w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700 ${
+                      location.pathname.startsWith("/work/boards")
+                        ? "bg-gray-200"
+                        : ""
+                    }`}
                   >
                     <LayoutGrid className="mr-2 h-4 w-4" />
                     My Boards
                   </Link>
                   <Link
                     to={"/work/calendar"}
-                    className="w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700"
+                    className={`w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700 ${
+                      location.pathname === "/work/calendar"
+                        ? "bg-gray-200"
+                        : ""
+                    }`}
                   >
                     <Calendar className="mr-2 h-4 w-4" />
                     Calendar
                   </Link>
                   <Link
                     to={"/work/members"}
-                    className="w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700"
+                    className={`w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700 ${
+                      location.pathname === "/work/members" ? "bg-gray-200" : ""
+                    }`}
                   >
                     <UsersRound className="mr-2 h-4 w-4" />
                     Member
                   </Link>
                   <Link
                     to={"/work/chat"}
-                    className="w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700"
+                    className={`w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700 ${
+                      location.pathname === "/work/chat" ? "bg-gray-200" : ""
+                    }`}
                   >
                     <MessageCircle className="mr-2 h-4 w-4" />
                     Message
                   </Link>
                   <Link
                     to={"/work/settings"}
-                    className="w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700"
+                    className={`w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700 ${
+                      location.pathname === "/work/settings"
+                        ? "bg-gray-200"
+                        : ""
+                    }`}
                   >
                     <Settings className="mr-2 h-4 w-4" />
                     Settings
                   </Link>
                   <Link
                     to={"#"}
-                    className="w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700"
+                    className={`w-full flex items-center justify-start pl-4 py-2 rounded-md text-neutral-900 hover:bg-gray-100 hover:text-neutral-700 ${
+                      location.pathname === "#" ? "bg-gray-200" : ""
+                    }`}
                   >
                     <HelpCircle className="mr-2 h-4 w-4" />
                     Support
@@ -184,7 +204,7 @@ export const WorkAreaLayout: React.FC = () => {
 
         {/* Main Content */}
         <div
-          className="flex flex-col overflow-hidden"
+          className="flex flex-col overflow-auto"
           style={{
             backgroundImage:
               "radial-gradient(circle, #e8e8e8 2px, transparent 1px)",
