@@ -1,4 +1,3 @@
-import { MoreVertical, Edit2, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 
 import {
@@ -8,12 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../../../components/ui/dropdown-menu";
 import { Button } from "../../../components/ui/button";
 import useLink from "../../../hooks/useLink";
 

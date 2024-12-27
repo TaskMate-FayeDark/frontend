@@ -136,12 +136,14 @@ export default function ProjectHeader({
                     </Button>
                   )}
                 </div>
-                <Button
-                  variant="outline"
-                  className="ml-2 p-3 h-8 w-8 rounded-full border-dashed border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
-                >
-                  <Plus className="h-8 w-8" />
-                </Button>
+                {role && role !== "viewer" && (
+                  <Button
+                    variant="outline"
+                    className="ml-2 p-3 h-8 w-8 rounded-full border-dashed border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
+                  >
+                    <Plus className="h-8 w-8" />
+                  </Button>
+                )}
               </div>
             )}
           </div>
