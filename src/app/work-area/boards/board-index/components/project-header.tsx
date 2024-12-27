@@ -111,41 +111,45 @@ export default function ProjectHeader({
                 />
               </Avatar>
             </div>
-            {members.length > 0 && (
-              <div className="flex items-center gap-2 mb-4">
-                <Flame className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium">Assigned to</span>
-                <div className="flex -space-x-2">
-                  {members.slice(0, 4).map((member, i) => (
-                    <Avatar
-                      key={i}
-                      className="h-8 w-8 border-2 border-background"
-                    >
-                      <AvatarImage
-                        src={member.profile_picture || "/default-avt-user.webp"}
-                        alt="User"
-                      />
-                    </Avatar>
-                  ))}
-                  {members.length > 4 && (
-                    <Button
-                      variant="secondary"
-                      className="h-6 w-6 rounded-full text-xs font-medium"
-                    >
-                      +{members.length - 4}
-                    </Button>
-                  )}
-                </div>
-                {role && role !== "viewer" && (
-                  <Button
-                    variant="outline"
-                    className="ml-2 p-3 h-8 w-8 rounded-full border-dashed border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
-                  >
-                    <Plus className="h-8 w-8" />
-                  </Button>
-                )}
-              </div>
-            )}
+            <div className="flex items-center gap-2 mb-4">
+              <Flame className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Assigned to</span>
+              {members.length > 0 && (
+                <>
+                  <div className="flex -space-x-2">
+                    {members.slice(0, 4).map((member, i) => (
+                      <Avatar
+                        key={i}
+                        className="h-8 w-8 border-2 border-background"
+                      >
+                        <AvatarImage
+                          src={
+                            member.profile_picture || "/default-avt-user.webp"
+                          }
+                          alt="User"
+                        />
+                      </Avatar>
+                    ))}
+                    {members.length > 4 && (
+                      <Button
+                        variant="secondary"
+                        className="h-6 w-6 rounded-full text-xs font-medium"
+                      >
+                        +{members.length - 4}
+                      </Button>
+                    )}
+                  </div>
+                </>
+              )}
+              {role && role !== "viewer" && (
+                <Button
+                  variant="outline"
+                  className="ml-2 p-3 h-8 w-8 rounded-full border-dashed border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
+                >
+                  <Plus className="h-8 w-8" />
+                </Button>
+              )}
+            </div>
           </div>
 
           <div className="flex flex-wrap gap-4">
