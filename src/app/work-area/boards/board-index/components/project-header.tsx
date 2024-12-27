@@ -18,6 +18,17 @@ import { IUser } from "../../../../../types/user";
 import { FormEditBoard } from "../../../../../components/form-edit-board";
 import { Popover } from "antd";
 import { UpdateBoard } from "../../../../../types/updateBoard";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../../../../../components/ui/dialog";
+import { Input } from "../../../../../components/ui/input";
+import { Label } from "../../../../../components/ui/label";
 
 interface ProjectHeaderProps {
   dataBoard: Board;
@@ -142,12 +153,45 @@ export default function ProjectHeader({
                 </>
               )}
               {role && role !== "viewer" && (
-                <Button
-                  variant="outline"
-                  className="ml-2 p-3 h-8 w-8 rounded-full border-dashed border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
-                >
-                  <Plus className="h-8 w-8" />
-                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="ml-2 p-3 h-8 w-8 rounded-full border-dashed border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
+                    >
+                      <Plus className="h-8 w-8" />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                      <DialogTitle>Add user</DialogTitle>
+                      <DialogDescription>
+                        Add a user to the board by entering their email address.
+                        Click save when you're done.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex flex-col items-start justify-between">
+                      <Label className="mb-2" htmlFor="email">
+                        Email
+                      </Label>
+                      <Input
+                        id="email"
+                        defaultValue="example@gmail.com"
+                        className="col-span-3"
+                        type="email"
+                        required
+                      />
+                    </div>
+                    <DialogFooter>
+                      <Button
+                        className="bg-blue-500 text-white hover:bg-blue-600 hover:text-white"
+                        type="submit"
+                      >
+                        Add user
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               )}
             </div>
           </div>
