@@ -123,14 +123,6 @@ export function BoardList() {
     await getBoard(page);
   };
 
-  const handleEdit = () => {
-    console.log("Edit clicked");
-  };
-
-  const handleDelete = () => {
-    console.log("Delete clicked");
-  };
-
   useEffect(() => {
     getBoard(currentPage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -226,8 +218,6 @@ export function BoardList() {
                 createdBy={board.createdByUser.name}
                 createdAt={new Date(board.created_at)}
                 expiresAt={new Date(board.due_date)}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
               />
             ))}
         </div>

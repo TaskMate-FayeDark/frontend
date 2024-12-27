@@ -24,8 +24,6 @@ interface BoardCardProps {
   createdBy: string;
   createdAt: Date;
   expiresAt: Date;
-  onEdit?: () => void;
-  onDelete?: () => void;
 }
 
 export default function ItemBoard({
@@ -35,31 +33,12 @@ export default function ItemBoard({
   createdBy,
   createdAt,
   expiresAt,
-  onEdit,
-  onDelete,
 }: BoardCardProps) {
   const { navigate } = useLink();
   return (
     <Card className="max-w-full">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xl font-bold truncate">{title}</CardTitle>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="p-0 bg-slate-50">
-              <MoreVertical className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={onEdit}>
-              <Edit2 className="mr-2 h-4 w-4" />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={onDelete} className="text-red-600">
-              <Trash2 className="mr-2 h-4 w-4" />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground overflow-hidden">
